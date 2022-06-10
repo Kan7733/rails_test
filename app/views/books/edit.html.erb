@@ -1,0 +1,2 @@
+<%= render partial: "form", locals: { type: "更新", book: @book, method: "patch"} %>
+<%=link_to "削除", book_path(@book),method: "delete",data: {confirm: "本当に削除しますか？"}, class: "btn btn-warning" %>
