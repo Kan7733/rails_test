@@ -27,10 +27,17 @@
     <th>link</th>
     <th>edit</th>
   </tr>
+  <% sum_in = 0 %>
+  <% sum_out = 0 %>
   <% @books.each do |book| %>
     <tr>
       <td><%=book.year %>年<%=book.month %>月</td>
-      <td><%=book.inout %></td>
+      <%if book.inout == 1%>
+        <td>収入</td>
+      <% end %>
+      <%if book.inout == 2%>
+        <td>支出</td>
+      <% end %>
       <td><%=book.category %></td>
       <td><%=book.amount %>万円</td>
       <td>
@@ -40,6 +47,20 @@
         <%=link_to "編集", edit_book_path(book), class: "btn btn-info" %>
       </td>
     </tr>
+    <% if book.inout == 1 %>
+      <% sum_in += book.amount %>
+    <% end %>
+    <% if book.inout == 2 %>
+      <% sum_out += book.amount %>
+    <% end %>
   <% end %>
+  <tr>
+    <td>収入小計</td>
+    <td><%=sum_in%>万円</td>
+    <td>収支小計</td>
+    <td><%=sum_out%>万円</td>
+    <td>合計</td>
+    <td><%=sum_in-sum_out%>万円</td>
+    </tr>
 </table>
 <%=link_to "add", new_book_path, class: "btn btn-primary" %>
